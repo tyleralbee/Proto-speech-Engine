@@ -1,0 +1,20 @@
+C:\Users\user\Desktop\ProtoSpeechEnigine\bin\Debug\ProtoSpeechEnigine.exe.config
+C:\Users\user\Desktop\ProtoSpeechEnigine\bin\Debug\ProtoSpeechEnigine.exe
+C:\Users\user\Desktop\ProtoSpeechEnigine\bin\Debug\ProtoSpeechEnigine.pdb
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.Form1.resources
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.Properties.Resources.resources
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.csproj.GenerateResource.cache
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.exe
+C:\Users\user\Desktop\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.pdb
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\bin\Debug\ProtoSpeechEnigine.exe.config
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\bin\Debug\ProtoSpeechEnigine.exe
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\bin\Debug\ProtoSpeechEnigine.pdb
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.csprojResolveAssemblyReference.cache
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.Form1.resources
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.Properties.Resources.resources
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.csproj.GenerateResource.cache
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.csproj.CoreCompileInputs.cache
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.exe
+C:\Users\tyal7\Downloads\ProtoSpeechEngine-master (1)\ProtoSpeechEngine-master\ProtoSpeechEnigine\obj\Debug\ProtoSpeechEnigine.pdb
