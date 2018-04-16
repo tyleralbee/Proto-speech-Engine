@@ -17,7 +17,6 @@ namespace ProtoSpeechEnigine
         SpeechRecognitionEngine recEngine2 = new SpeechRecognitionEngine();
         SpeechRecognitionEngine recEngine3 = new SpeechRecognitionEngine();
 
-
         public Form1()
         {
             InitializeComponent();
@@ -35,80 +34,96 @@ namespace ProtoSpeechEnigine
             Choices states = new Choices();
             states.Add(new string[] { "review mode", "edit mode" });
 
+
+
             GrammarBuilder sBuilder = new GrammarBuilder();
             sBuilder.Append(states);
+
+
             Grammar stateGrammar = new Grammar(sBuilder);
+
             recEngine.LoadGrammarAsync(stateGrammar);
             recEngine.SetInputToDefaultAudioDevice();
-            recEngine.SpeechRecognized += RecEngine_SpeechRecognized;
-            
+            recEngine.SpeechRecognized += RecEngine_StateRecognized;
+
+            Choices eCommands = new Choices();
+            eCommands.Add(new string[] { "next", "previous", "prev" });
+            GrammarBuilder eBuilder = new GrammarBuilder();
+            eBuilder.Append(eCommands);
+            Grammar editGrammar = new Grammar(eBuilder);
+            recEngine2.LoadGrammarAsync(editGrammar);
+            recEngine2.SetInputToDefaultAudioDevice();
+
+            Choices rCommands = new Choices();
+            rCommands.Add(new string[] { "next", "previous", "prev" });
+            GrammarBuilder rBuilder = new GrammarBuilder();
+            rBuilder.Append(rCommands);
+            Grammar reviewGrammar = new Grammar(rBuilder);
+            recEngine3.LoadGrammarAsync(reviewGrammar);
+            recEngine3.SetInputToDefaultAudioDevice();
+
         }
 
-        private void RecEngine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        private void RecEngine_StateRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Text == "edit mode"){
-                Choices commands = new Choices();
-                commands.Add(new string[] { "hello", "hello world", "next", "previous", "prev" });
-                GrammarBuilder gBuilder = new GrammarBuilder();
-                gBuilder.Append(commands);
-                Grammar grammar = new Grammar(gBuilder);
-                recEngine2.LoadGrammarAsync(grammar);
-                recEngine2.SpeechRecognized += RecEngine_SpeechRecognized;
-                switch (e.Result.Text)
-                {
-                    case "hello":
-                        richTextBox1.Text += "\nhello";
-                        break;
-                    case "hello world":
-                        richTextBox1.Text += "\nhello world";
-                        break;
-                    case "next":
-                        richTextBox1.Text += "\nnext";
-                        break;
-                    case "previous":
-                        richTextBox1.Text += "\nprevious";
-                        break;
-                    case "prev":
-                        richTextBox1.Text += "\nprev";
-                        break;
-                    default:
-                        richTextBox1.Text += "\nedit mode";
-                        break;
-                }
-            }
-            else if (e.Result.Text == "review mode")
+            switch (e.Result.Text)
             {
-                Choices commands2 = new Choices();
+                case "edit mode":
+                    richTextBox1.Text += "\nedit mode";
+                    recEngine.RecognizeAsyncStop();
 
-                commands2.Add(new string[] { "no", "yes" });
+                    recEngine2.RecognizeAsync(RecognizeMode.Multiple);
 
-                GrammarBuilder gBuilder2 = new GrammarBuilder();
+                    recEngine2.SpeechRecognized += RecEngine_EditCommandRecognized;
+                    break;
+                case "review mode":
+                    richTextBox1.Text += "\nreview mode";
+                    recEngine.RecognizeAsyncStop();
 
-                gBuilder2.Append(commands2);
+                    recEngine3.RecognizeAsync(RecognizeMode.Multiple);
 
-                Grammar grammar2 = new Grammar(gBuilder2);
-
-                recEngine3.LoadGrammarAsync(grammar2);
-
-                recEngine3.SpeechRecognized += RecEngine_SpeechRecognized;
-
-                switch (e.Result.Text)
-                {
-                    case "no":
-                        richTextBox1.Text += "\nhello";
-                        break;
-                    case "yes":
-                        richTextBox1.Text += "\nhello world";
-                        break;
-
-                    default:
-                        richTextBox1.Text += "\nreview mode";
-                        break;
-                }
+                    recEngine3.SpeechRecognized += RecEngine_ReviewCommandRecognized;
+                    break;
+                default:
+                    richTextBox1.Text += "\ndefault mode";
+                    break;
             }
-
-
-
+        }
+        private void RecEngine_EditCommandRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            switch (e.Result.Text)
+            {
+                case "next":
+                    richTextBox1.Text += "\nnext";
+                    break;
+                case "previous":
+                    richTextBox1.Text += "\nprevious";
+                    break;
+                case "prev":
+                    richTextBox1.Text += "\nprev";
+                    break;
+                default:
+                    richTextBox1.Text += "\ndefault";
+                    break;
+            }
+        }
+        private void RecEngine_ReviewCommandRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            switch (e.Result.Text)
+            {
+                case "next":
+                    richTextBox1.Text += "\nnext";
+                    break;
+                case "previous":
+                    richTextBox1.Text += "\nprevious";
+                    break;
+                case "prev":
+                    richTextBox1.Text += "\nprev";
+                    break;
+                default:
+                    richTextBox1.Text += "\ndefault";
+                    break;
+            }
         }
 
         private void btnDisable_Click(object sender, EventArgs e)
