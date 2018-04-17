@@ -30,38 +30,9 @@ namespace ProtoSpeechEnigine
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            Choices states = new Choices();
-            states.Add(new string[] { "review mode", "edit mode" });
-
-
-
-            GrammarBuilder sBuilder = new GrammarBuilder();
-            sBuilder.Append(states);
-
-
-            Grammar stateGrammar = new Grammar(sBuilder);
-
-            recEngine.LoadGrammarAsync(stateGrammar);
-            recEngine.SetInputToDefaultAudioDevice();
-            recEngine.SpeechRecognized += RecEngine_StateRecognized;
-
-            Choices eCommands = new Choices();
-            eCommands.Add(new string[] { "next", "previous", "prev" });
-            GrammarBuilder eBuilder = new GrammarBuilder();
-            eBuilder.Append(eCommands);
-            Grammar editGrammar = new Grammar(eBuilder);
-            recEngine2.LoadGrammarAsync(editGrammar);
-            recEngine2.SetInputToDefaultAudioDevice();
-
-            Choices rCommands = new Choices();
-            rCommands.Add(new string[] { "next", "previous", "prev" });
-            GrammarBuilder rBuilder = new GrammarBuilder();
-            rBuilder.Append(rCommands);
-            Grammar reviewGrammar = new Grammar(rBuilder);
-            recEngine3.LoadGrammarAsync(reviewGrammar);
-            recEngine3.SetInputToDefaultAudioDevice();
-
+            initializeStates();
+            initializeEditCommands();
+            initializeReviewCommands();
         }
 
         private void RecEngine_StateRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -71,17 +42,13 @@ namespace ProtoSpeechEnigine
                 case "edit mode":
                     richTextBox1.Text += "\nedit mode";
                     recEngine.RecognizeAsyncStop();
-
-                    recEngine2.RecognizeAsync(RecognizeMode.Multiple);
-
+                    initializeRec2();
                     recEngine2.SpeechRecognized += RecEngine_EditCommandRecognized;
                     break;
                 case "review mode":
                     richTextBox1.Text += "\nreview mode";
                     recEngine.RecognizeAsyncStop();
-
-                    recEngine3.RecognizeAsync(RecognizeMode.Multiple);
-
+                    initializeRec3();
                     recEngine3.SpeechRecognized += RecEngine_ReviewCommandRecognized;
                     break;
                 default:
@@ -102,6 +69,12 @@ namespace ProtoSpeechEnigine
                 case "prev":
                     richTextBox1.Text += "\nprev";
                     break;
+                case "choose mode":
+                    richTextBox1.Text += "\nchoose mode";
+                    recEngine2.RecognizeAsyncStop();
+                    initializeRec1();
+                    recEngine.SpeechRecognized += RecEngine_StateRecognized;
+                    break;
                 default:
                     richTextBox1.Text += "\ndefault";
                     break;
@@ -120,10 +93,64 @@ namespace ProtoSpeechEnigine
                 case "prev":
                     richTextBox1.Text += "\nprev";
                     break;
+                case "root":
+                    richTextBox1.Text += "\nroot";
+                    break;
+                case "choose mode":
+                    richTextBox1.Text += "\nchoose mode";
+                    recEngine3.RecognizeAsyncStop();
+                    initializeRec1();
+                    recEngine.SpeechRecognized += RecEngine_StateRecognized;
+                    break;
                 default:
                     richTextBox1.Text += "\ndefault";
                     break;
             }
+        }
+
+        private void initializeRec1()
+        {
+            recEngine.RecognizeAsync(RecognizeMode.Multiple);
+        }
+        private void initializeRec2()
+        {
+            recEngine2.RecognizeAsync(RecognizeMode.Multiple);
+        }
+        private void initializeRec3()
+        {
+            recEngine3.RecognizeAsync(RecognizeMode.Multiple);
+        }
+
+        private void initializeStates()
+        {
+            Choices states = new Choices();
+            states.Add(new string[] { "review mode", "edit mode" });
+            GrammarBuilder sBuilder = new GrammarBuilder();
+            sBuilder.Append(states);
+            Grammar stateGrammar = new Grammar(sBuilder);
+            recEngine.LoadGrammarAsync(stateGrammar);
+            recEngine.SetInputToDefaultAudioDevice();
+            recEngine.SpeechRecognized += RecEngine_StateRecognized;
+        }
+        private void initializeEditCommands()
+        {
+            Choices eCommands = new Choices();
+            eCommands.Add(new string[] { "next", "previous", "prev", "choose mode" });
+            GrammarBuilder eBuilder = new GrammarBuilder();
+            eBuilder.Append(eCommands);
+            Grammar editGrammar = new Grammar(eBuilder);
+            recEngine2.LoadGrammarAsync(editGrammar);
+            recEngine2.SetInputToDefaultAudioDevice();
+        }
+        private void initializeReviewCommands()
+        {
+            Choices rCommands = new Choices();
+            rCommands.Add(new string[] { "next", "previous", "prev", "root", "choose mode" });
+            GrammarBuilder rBuilder = new GrammarBuilder();
+            rBuilder.Append(rCommands);
+            Grammar reviewGrammar = new Grammar(rBuilder);
+            recEngine3.LoadGrammarAsync(reviewGrammar);
+            recEngine3.SetInputToDefaultAudioDevice();
         }
 
         private void btnDisable_Click(object sender, EventArgs e)
