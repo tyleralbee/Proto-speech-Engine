@@ -43,13 +43,11 @@ namespace ProtoSpeechEnigine
                     richTextBox1.Text += "\nedit mode";
                     recEngine.RecognizeAsyncStop();
                     initializeRec2();
-                    recEngine2.SpeechRecognized += RecEngine_EditCommandRecognized;
                     break;
                 case "review mode":
                     richTextBox1.Text += "\nreview mode";
                     recEngine.RecognizeAsyncStop();
                     initializeRec3();
-                    recEngine3.SpeechRecognized += RecEngine_ReviewCommandRecognized;
                     break;
                 default:
                     richTextBox1.Text += "\ndefault mode";
@@ -73,7 +71,6 @@ namespace ProtoSpeechEnigine
                     richTextBox1.Text += "\nchoose mode";
                     recEngine2.RecognizeAsyncStop();
                     initializeRec1();
-                    recEngine.SpeechRecognized += RecEngine_StateRecognized;
                     break;
                 default:
                     richTextBox1.Text += "\ndefault";
@@ -100,7 +97,6 @@ namespace ProtoSpeechEnigine
                     richTextBox1.Text += "\nchoose mode";
                     recEngine3.RecognizeAsyncStop();
                     initializeRec1();
-                    recEngine.SpeechRecognized += RecEngine_StateRecognized;
                     break;
                 default:
                     richTextBox1.Text += "\ndefault";
@@ -111,14 +107,17 @@ namespace ProtoSpeechEnigine
         private void initializeRec1()
         {
             recEngine.RecognizeAsync(RecognizeMode.Multiple);
+            recEngine.SpeechRecognized += RecEngine_StateRecognized;
         }
         private void initializeRec2()
         {
             recEngine2.RecognizeAsync(RecognizeMode.Multiple);
+            recEngine2.SpeechRecognized += RecEngine_EditCommandRecognized;
         }
         private void initializeRec3()
         {
             recEngine3.RecognizeAsync(RecognizeMode.Multiple);
+            recEngine3.SpeechRecognized += RecEngine_ReviewCommandRecognized;
         }
 
         private void initializeStates()
